@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+     <style type="text/css">
+         body {
+         background-color:gray;
+         }
+     </style>
+
+    <script async type="module">
+        import { App } from "./app.js"
+        document.onreadystatechange = () => {
+            if (document.readyState === "complete") {
+                App.Run();
+            }
+        };
+    </script>
+</head>
+<body>
+    <canvas id="derp" width="1920", height="1080" style="background-color:orange;">
+
+    </canvas>
+</body>
+</html>

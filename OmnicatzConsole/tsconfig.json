@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "ES2020",
+    "target": "ES2020",
+    //  "rootDir": "src",
+    // "outDir": "dist",
+    "sourceMap": false,
+    "strict": true
+  },
+  "compileOnSave": true,
+  "exclude": [
+    "node_modules",
+    "wwwroot"
+  ]
+}

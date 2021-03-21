@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0",
+  "name": "omnicatz.console",
+  "author": "confusiarch",
+  "private": true,
+  "devDependencies": {
+    "typescript": "4.2.3",
+    "lite-server": "2.6.1"
+  }
+}

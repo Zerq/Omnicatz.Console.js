@@ -1,8 +1,17 @@
 {
   "version": "1.0.0",
-  "name": "omnicatz.console",
+  "name": "omnicatz.console.js",
+  "description": "The main idea with this project is to provide a low dependencyh ES native module based console app framework for the browser.",
   "author": "confusiarch",
-  "private": true,
+  "licenses": [
+    {
+      "type": "LGPL 3.0",
+      "url": "https://www.gnu.org/licenses/lgpl-3.0.en.html"
+    }
+  ],
+  "scripts": {
+    "dev": "lite-server"
+  },
   "devDependencies": {
     "typescript": "4.2.3",
     "lite-server": "2.6.1"

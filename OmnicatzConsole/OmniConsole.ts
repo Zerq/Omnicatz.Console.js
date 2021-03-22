@@ -14,21 +14,22 @@ export class OmniConsole {
     private height: number;
     private hostWidth: number;
     private hostHeight: number;
-
     private hostId: string;
     private context: CanvasRenderingContext2D;
     private autoDraw: boolean;
-    public Echo = false;
-    public EchoFormat = (txt: string) => `>${txt}`;
-    public SkipEmpty = false;
-    private autoSize = false;
-
+    private autoSize: boolean;
     private fontSize: number;
+
     private get fw() { return this.fontSize * 0.5; }
     private get fh() { return this.fontSize * 0.5; }
 
+    public EchoFormat = (txt: string) => `>${txt}`;
+    public SkipEmpty = false;
+    public Echo: boolean;
 
-    public constructor(width: number, height: number, hostId: string, autoDraw = false, echo = false, autoSize = false, fontSize = 50,) {
+
+
+    public constructor(width: number, height: number, hostId: string, autoDraw = true, echo = false, autoSize = false, fontSize = 50,) {
         this.width = width;
         this.height = height;
         this.autoDraw = autoDraw;
@@ -92,6 +93,25 @@ export class OmniConsole {
         });
     }
 
+
+    public DrawForRead(): void {
+        this.Draw();
+        const chars = (">" + this.readString).split("");
+        chars.forEach((c, i) => {
+            let yOff = Math.round(this.cursor.x + i) / this.width;
+            this.context.fillStyle = this.Back.Color;
+            this.context.fillRect(this.fw * ((this.cursor.x + i) % this.width),
+                this.fh * (this.cursor.y + yOff), this.fw, this.fh);
+            this.context.fillStyle = this.Fore.Color;
+            this.context.fillText(
+                c,
+                this.fw * ((this.cursor.x + i) % this.width) + (this.fw / 4),
+                this.fh * (this.cursor.y + yOff) + (this.fh / 1.2),
+                this.fontSize
+            );
+            this.context.fillStyle = this.Fore.Color;
+        });
+    }
 
     public set Fore(value: ConsoleColor) { this.fore = value; }
     public get Fore(): ConsoleColor { return this.fore; }
@@ -197,40 +217,6 @@ export class OmniConsole {
     private readString = "";
 
 
-    public DrawRead(): void {
-        this.Draw();
-
-
-
-        const chars = (">" + this.readString).split("");
-
-        chars.forEach((c, i) => {
-
-            let yOff = Math.round(this.cursor.x + i) / this.width;
-
-            this.context.fillStyle = this.Back.Color;
-            this.context.fillRect(this.fw * ((this.cursor.x + i) % this.width),
-                this.fh * (this.cursor.y + yOff), this.fw, this.fh);
-            this.context.fillStyle = this.Fore.Color;
-
-
-
-
-            this.context.fillText(
-                c,
-                this.fw * ((this.cursor.x + i) % this.width) + (this.fw / 4),
-                this.fh * (this.cursor.y + yOff) + (this.fh / 1.2),
-                this.fontSize
-            );
-            this.context.fillStyle = this.Fore.Color;
-        });
-
-
-
-
-    }
-
-
 
 
 
@@ -262,14 +248,14 @@ export class OmniConsole {
                     } else if (n.keyCode === 8) { //backspace
                         this.readString = this.readString.slice(0, -1);
                         this.Draw();
-                        this.DrawRead()
+                        this.DrawForRead()
                     } else if (n.key.length === 1) {
                         this.readString += n.key;
-                        this.DrawRead();
+                        this.DrawForRead();
                     }
             };
 
-            this.DrawRead();
+            this.DrawForRead();
             this.readString = "";
             canvas.addEventListener("keyup", listenerLogic);
         });
